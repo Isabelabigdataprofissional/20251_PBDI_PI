@@ -6,6 +6,42 @@
 -- - Taxa de crescimento ou queda entre períodos.
 -- - Frequência de ocorrência de um valor específico.
 
+DO $$
+DECLARE
+-- --1. declara o cursor 
+cur_valor_entregas_mes REFCURSOR;
+
+variavel_status VARCHAR(200):= 	'order_status';
+variavel_valor_entregas_mes INT;
+variavel_mes TEXT;
+variavel_nome_tabela VARCHAR(200) := 'tb_order';
+
+BEGIN
+--2.abre o cursor 
+OPEN cur_valor_entregas_mes  FOR EXECUTE
+
+format('
+	SELECT
+ SUM(order_amount) AS valor_entrega ,
+ EXTRACT ( MONTH FROM order_moment_created) :: TEXT AS mes
+	FROM 	%s
+	WHERE order_status >= $1
+GROUP BY mes 
+ORDER BY mes
+ '
+				,variavel_nome_tabela )
+USING variavel_status ;
+
+--3. Recupera dados 
+LOOP
+FETCH cur_valor_entregas_mes  INTO variavel_valor_entregas_mes, variavel_mes ;
+EXIT WHEN NOT FOUND;
+RAISE NOTICE 'Mês: %, Valor total entregue: %', variavel_mes, variavel_valor_entregas_mes;
+END LOOP;
+
+--4. Fecha o cursor
+CLOSE cur_valor_entregas_mes;
+END; $$
 
 
 -- 2 Trigger (PL/pgSQL)

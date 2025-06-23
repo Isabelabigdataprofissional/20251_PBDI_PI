@@ -55,4 +55,19 @@ END; $$
 -- - Atualização de dados agregados em outra tabela.
 -- - Envio de alerta ou bloqueio de alterações específicas.
 
+CREATE OR REPLACE FUNCTION fn_have_plan_price()
+RETURNS TRIGGER
+AS $$
+BEGIN
+    IF NEW.store_plan_price IS NULL OR NEW.store_plan_price = 0 THEN
+        NEW.have_plan_price := FALSE; 
+    ELSE  NEW.have_plan_price := TRUE; 
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
+CREATE  OR REPLACE TRIGGER tg_have_plan_price
+BEFORE UPDATE ON tb_store 
+FOR EACH ROW
+EXECUTE FUNCTION fn_have_plan_price(); 

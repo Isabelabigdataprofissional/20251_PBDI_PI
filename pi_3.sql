@@ -11,7 +11,7 @@ DECLARE
 -- --1. declara o cursor 
 cur_valor_entregas_mes REFCURSOR;
 
-variavel_status VARCHAR(200):= 	'DELIVERED';
+variavel_status VARCHAR(200):= 	'FINISHED';
 variavel_valor_entregas_mes INT;
 variavel_mes TEXT;
 variavel_nome_tabela VARCHAR(200) := 'fato_orders';

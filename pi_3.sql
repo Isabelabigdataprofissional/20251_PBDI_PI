@@ -11,10 +11,10 @@ DECLARE
 -- --1. declara o cursor 
 cur_valor_entregas_mes REFCURSOR;
 
-variavel_status VARCHAR(200):= 	'order_status';
+variavel_status VARCHAR(200):= 	'DELIVERED';
 variavel_valor_entregas_mes INT;
 variavel_mes TEXT;
-variavel_nome_tabela VARCHAR(200) := 'tb_order';
+variavel_nome_tabela VARCHAR(200) := 'fato_orders';
 
 BEGIN
 --2.abre o cursor 
@@ -68,6 +68,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE  OR REPLACE TRIGGER tg_have_plan_price
-BEFORE UPDATE ON tb_store 
+BEFORE INSERT OR UPDATE ON dim_stores 
 FOR EACH ROW
 EXECUTE FUNCTION fn_have_plan_price(); 

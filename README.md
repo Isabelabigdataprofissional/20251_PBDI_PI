@@ -15,4 +15,5 @@ Stored procedures com cursor dinâmico para somar order_amount de pedidos entreg
 Triggers que define have_plan_price automaticamente
 Análises estatísticas: média de ciclo de entrega, distribuição de cancelamentos por plano, comparativo de valor e tempo entre canais, qui-quadrado entre hubs
 
-A documentação completa está no arquivo " ", neste repositório.
+A documentação completa está no arquivo "Bruno-Helena-Isabela-Vitoria-Gabriela-Projeto Integrador III v17.pdf
+" e a apresentação sobre o projeto está no arquivo "ApresemtçãoPI3" estão neste repositório.
